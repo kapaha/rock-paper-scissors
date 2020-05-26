@@ -1,76 +1,67 @@
 let playerScore = 0;
 let computerScore = 0;
+let round = 1;
+const maxRounds = 5;
 
-game();
+const buttons = document.querySelectorAll('button');
+const currentRound = document.querySelector('#current-round');
+const roundResult = document.querySelector('#round-result');
+const score = document.querySelector('#score');
+
+buttons.forEach((button) => {
+    button.addEventListener('click', (e) => {
+        game(button.textContent);
+    });
+});
+
+function game(buttonText) {
+    currentRound.textContent = returnCurrentRound();
+    roundResult.textContent = playRound(buttonText, computerChoice());
+    score.textContent = returnScore();
+}
+
+function returnCurrentRound() {
+    return `Round: ${round}`;
+}
+
+function returnScore () {
+    return `Player ${playerScore} - ${computerScore} Computer`;
+}
 
 function computerChoice() {
     const choice = ['Rock', 'Paper', 'Scissors'];
     return choice[randomNumber(choice.length)];
 }
 
-function playerChoice() {
-    let choice = prompt('Please Enter: Rock, Paper or Scissors.');
-
-    choice = choice.charAt(0).toUpperCase() + choice.slice(1).toLowerCase();
-
-    if (choice != 'Rock' && choice != 'Paper' && choice != 'Scissors') {
-        alert('Please enter a valid choice!')
-        return playerChoice();
-    } else {
-        return choice;
-    }
+function randomNumber(maxExclusiveNumber) {
+    return Math.floor(Math.random() * maxExclusiveNumber)
 }
 
-function playRound() {
-    // get user input
-    let playerSelection = playerChoice();
-
-    // get computer input
-    let computerSelection = computerChoice();
-
+function playRound(playerSelection, computerSelection) {
     switch (true) {
         case playerSelection === 'Rock' && computerSelection === 'Scissors':
         case playerSelection === 'Paper' && computerSelection === 'Rock':
         case playerSelection === 'Scissors' && computerSelection === 'Paper':
             playerScore++;
+            round++;
             return (`[Player] ${playerSelection} vs ${computerSelection} [Computer]\nYou Win! ${playerSelection} beats ${computerSelection}.`);
-            break;
         case playerSelection === 'Rock' && computerSelection === 'Paper':
         case playerSelection === 'Paper' && computerSelection === 'Scissors':
         case playerSelection === 'Scissors' && computerSelection === 'Rock':
+            round++;
             computerScore++;
-            return `[Player] ${playerSelection} vs ${computerSelection} [Computer]\nYou Lose! ${computerSelection} beats ${playerSelection}.`;
-            break;
+            return (`[Player] ${playerSelection} vs ${computerSelection} [Computer]\nYou Lose! ${computerSelection} beats ${playerSelection}.`);
         case playerSelection === computerSelection:
-            console.log(`[Player] ${playerSelection} vs ${computerSelection} [Computer]\nYou Draw! you both picked ${playerSelection}, try again!`);
-            return playRound();
-            break;
+            return (`[Player] ${playerSelection} vs ${computerSelection} [Computer]\nYou Draw! you both picked ${playerSelection}, try again!`);
     }
 }
 
-function game() {
-    let currentRound = 1;
-    const maxRounds = 5;
-
-    while(currentRound <= maxRounds) {
-        console.log(`Round ${currentRound}`)
-        console.log(playRound());
-        console.log('');
-        currentRound++ ;
-    }
-    console.log(showFinalScores(playerScore, computerScore))
-}
-
-function randomNumber(maxExclusiveNumber) {
-    return Math.floor(Math.random() * maxExclusiveNumber)
-}
-
-function showFinalScores(playerFinalScore, computerFinalScore) {
-    if (playerFinalScore > computerFinalScore) {
-        return `You win the game!\nFinal Score: Player [${playerFinalScore} - ${computerFinalScore}] Computer.`    
-    } else if (playerScore < computerFinalScore) {
-        return `You Lose the game!\nFinal Score: Player [${playerFinalScore} - ${computerFinalScore}] Computer.`
-    } else {
-        return `You Draw the game!\nFinal Score: Player [${playerFinalScore} - ${computerFinalScore}] Computer.`
-    }
-}
+// function showFinalScores(playerFinalScore, computerFinalScore) {
+//     if (playerFinalScore > computerFinalScore) {
+//         return `You win the game!\nFinal Score: Player [${playerFinalScore} - ${computerFinalScore}] Computer.`    
+//     } else if (playerScore < computerFinalScore) {
+//         return `You Lose the game!\nFinal Score: Player [${playerFinalScore} - ${computerFinalScore}] Computer.`
+//     } else {
+//         return `You Draw the game!\nFinal Score: Player [${playerFinalScore} - ${computerFinalScore}] Computer.`
+//     }
+// }
