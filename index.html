@@ -7,13 +7,38 @@
     <title>Rock paper scissors</title>
 </head>
 <body>
-    <button id="rock">Rock</button>
-    <button id="paper">Paper</button>
-    <button id="scissors">Scissors</button>
-    <div id="results">
-        <p id="current-round">Round: 1</p>
-        <p id="score">Player 0 - 0 Computer</p>
-        <p id="round-result"></p>
+    <header>
+        <h1>Rock Paper Scissors</h1>
+    </header>
+
+    <div class="round">
+        <p>Round 1</p>
     </div>
+
+    <div class="score-board">
+        <div id="user-label" class="badge">user</div>
+        <div id="computer-label" class="badge">comp</div>
+        <span id="user-score">0</span>:<span id="computer-score">0</span>
+    </div>
+
+    <div class="result">
+        <p></p>
+    </div>
+
+    <div class="choices">
+        <div id= "rock" class="choice">
+            <img src="images/rock.png" alt="">
+        </div>
+        <div id="paper" class="choice">
+            <img src="images/paper.png" alt="">
+        </div>
+        <div id= "scissors" class="choice">
+            <img src="images/scissors.png" alt="">
+        </div>
+    </div>
+
+    <p id="action-message">Make your move.</p>
+
+    <button id="reset-btn" class="reset">Reset</button>
 </body>
 </html>
